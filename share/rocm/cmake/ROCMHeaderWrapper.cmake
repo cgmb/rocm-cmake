@@ -22,8 +22,8 @@ function(rocm_wrap_header_dir DIRECTORY)
     foreach(PATTERN IN LISTS PARSE_PATTERNS)
         list(APPEND QUALIFIED_PATTERNS "${DIRECTORY}/${PATTERN}")
     endforeach()
-    file (GLOB_RECURSE include_files RELATIVE "${DIRECTORY}" ${QUALIFIED_PATTERNS})
-    foreach (include_file ${include_files})
+    file(GLOB_RECURSE include_files RELATIVE "${DIRECTORY}" ${QUALIFIED_PATTERNS})
+    foreach(include_file ${include_files})
         rocm_wrap_header_file(
             ${include_file}
             GUARDS ${PARSE_GUARDS}
