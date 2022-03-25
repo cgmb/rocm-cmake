@@ -5,21 +5,22 @@
 #ifndef @include_guard@
 #define @include_guard@
 
-#ifndef ROCM_@ITEM_GUARD@_GAVE_WARNING
-#define ROCM_@ITEM_GUARD@_GAVE_WARNING
+#if defined(ROCM_NO_WRAPPER_HEADER_WARNING)
+#include "@file_rel_path@"
+#else /* !defined(ROCM_NO_WRAPPER_HEADER_WARNING) */
 
+/* warn that this header is deprecated */
 #if defined(_MSC_VER)
 #pragma message(": warning:This file is deprecated. Use the header file from @header_location@ by using #include <@correct_include@>")
 #elif defined(__GNUC__)
 #warning "This file is deprecated. Use the header file from @header_location@ by using #include <@correct_include@>"
 #endif
+
+/* include the header from the new path; don't warn about its includes */
+#define ROCM_NO_WRAPPER_HEADER_WARNING
 #include "@file_rel_path@"
+#undef ROCM_NO_WRAPPER_HEADER_WARNING
 
-#undef ROCM_@ITEM_GUARD@_GAVE_WARNING
-#else
+#endif /* ROCM_NO_WRAPPER_HEADER_WARNING */
 
-#include "@file_rel_path@"
-
-#endif // ROCM_@ITEM_GUARD@_GAVE_WARNING
-
-#endif // @include_guard@
+#endif /* @include_guard@ */
